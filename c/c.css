@@ -1,0 +1,35 @@
+
+body {
+	width:660px;
+	margin:auto;
+	background:black;
+	text-align:left;
+	color:#999;
+}
+h1 {
+	font-size:220%;
+	font-family:'HelveticaNeue-UltraLight','Helvetica Neue UltraLight','Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-weight:100;
+	color:#999;
+	margin:50px 0 20px;
+}
+p {
+	margin:1em auto;
+	position:relative;
+}
+ul {
+    margin:1em 0;
+}
+li {
+    list-style:disc;
+    margin-left:20px;
+}
+label {
+    display:block;
+    margin:2em 0 5px;
+}
+#response {
+    width:300px;
+    height:100px;
+    display:block;
+}

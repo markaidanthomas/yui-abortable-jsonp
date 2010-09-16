@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>Abortable JSONP</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.2.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+<link rel="stylesheet" type="text/css" href="../c/c.css" />
+</head>
+<body>
+
+<h1>Abortable JSONP</h1>
+<p>
+    This is a demo of loading JSONP with the ability to:
+</p>
+<ul>
+    <li>Set a timeout value for the request</li>
+    <li>Manually abort the request by calling the abort() method</li>
+</ul>
+
+<p>The timeout is set at 1 second</p>
+<p>JSON is loaded into a hidden iframe with a dynamically created callback function that allows context correction to maintain scope</p>
+
+<button id="loader1">1 - Load JSON</button>
+<p>The json is loaded from a php script</p>
+
+<button id="loader2">2 - Load JSON (will timeout after 1 second)</button>
+<p>The json is loaded from a php script with a sleep setting 3 seconds, causing it to exceed the timeout value</p>
+
+<label for"response">Response</label>
+<textarea id="response"></textarea>
+
+<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/utilities/utilities.js"></script>
+<script type="text/javascript" src="j/yui2.widget.json-abortable.js"></script>
+<script type="text/javascript">
+
+YAHOO.util.Event.onDOMReady(function(){
+    function getJSON(sleep){
+        new YAHOO.util.AbortableJSONRequest().send({
+            src : '../json.php?sleep=' + sleep,
+            callback : {
+                success : function(response){
+                    document.getElementById("response").value = response.title;
+                },
+                failure : function(response){
+                    document.getElementById("response").value = response;
+                },
+                scope : this
+            },
+            timeout : 1000,
+            JSONCallback : 'loadData'
+        });
+    }
+    YAHOO.util.Event.on('loader1', 'click', function(){getJSON(0)});
+    YAHOO.util.Event.on('loader2', 'click', function(){getJSON(3)});
+});
+</script>
+</body>
+</html>
+
